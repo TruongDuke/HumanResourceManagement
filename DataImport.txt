@@ -1,0 +1,64 @@
+// Table nhanvien_attendance
+
+-- Tạo bảng tạm để lưu các ngày làm việc
+WITH workdays AS (
+    SELECT generate_series(
+        DATE '2025-01-01',  -- Ngày bắt đầu
+        DATE '2025-01-31',  -- Ngày kết thúc
+        INTERVAL '1 day'    -- Khoảng cách mỗi ngày
+    ) AS work_date
+)
+-- Lọc ra chỉ các ngày làm việc (22 ngày đầu tiên, loại bỏ thứ Bảy, Chủ Nhật)
+INSERT INTO public.nhanvien_attendance (date, check_in, check_out, hours_worked, employee_id, status)
+SELECT 
+    work_date AS date,
+    '10:00:00' AS check_in,
+    '17:00:00' AS check_out,
+    8.0 AS hours_worked,
+    1 AS employee_id,
+    'Trễ giờ' AS status
+FROM workdays
+WHERE EXTRACT(DOW FROM work_date) NOT IN (0, 6) -- Loại bỏ Chủ Nhật (0) và Thứ Bảy (6)
+LIMIT 18;
+
+-- Tạo bảng tạm để lưu các ngày làm việc
+WITH workdays AS (
+    SELECT generate_series(
+        DATE '2025-01-01',  -- Ngày bắt đầu
+        DATE '2025-01-31',  -- Ngày kết thúc
+        INTERVAL '1 day'    -- Khoảng cách mỗi ngày
+    ) AS work_date
+)
+-- Lọc ra chỉ các ngày làm việc (22 ngày đầu tiên, loại bỏ thứ Bảy, Chủ Nhật)
+INSERT INTO public.nhanvien_attendance (date, check_in, check_out, hours_worked, employee_id, status)
+SELECT 
+    work_date AS date,
+    '10:00:00' AS check_in,
+    '17:00:00' AS check_out,
+    8.0 AS hours_worked,
+    2 AS employee_id,
+    'Trễ giờ' AS status
+FROM workdays
+WHERE EXTRACT(DOW FROM work_date) NOT IN (0, 6) -- Loại bỏ Chủ Nhật (0) và Thứ Bảy (6)
+LIMIT 22; 
+
+-- Tạo bảng tạm để lưu các ngày làm việc
+WITH workdays AS (
+    SELECT generate_series(
+        DATE '2025-01-01',  -- Ngày bắt đầu
+        DATE '2025-01-31',  -- Ngày kết thúc
+        INTERVAL '1 day'    -- Khoảng cách mỗi ngày
+    ) AS work_date
+)
+-- Lọc ra chỉ các ngày làm việc (22 ngày đầu tiên, loại bỏ thứ Bảy, Chủ Nhật)
+INSERT INTO public.nhanvien_attendance (date, check_in, check_out, hours_worked, employee_id, status)
+SELECT 
+    work_date AS date,
+    '10:00:00' AS check_in,
+    '17:00:00' AS check_out,
+    8.0 AS hours_worked,
+    3 AS employee_id,
+    'Trễ giờ' AS status
+FROM workdays
+WHERE EXTRACT(DOW FROM work_date) NOT IN (0, 6) -- Loại bỏ Chủ Nhật (0) và Thứ Bảy (6)
+LIMIT 20; 

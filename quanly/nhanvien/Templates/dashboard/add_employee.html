@@ -1,0 +1,158 @@
+{% extends "dashboard/home.html" %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center">Thêm Nhân viên Mới</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu:</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Tên:</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="birth_date">Ngày sinh:</label>
+            <input type="date" name="birth_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="gender">Giới tính:</label>
+            <select name="gender" class="form-control" required>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ:</label>
+            <select name="address" class="form-control" required>
+                <option value="Hà Nội">Hà Nội</option>
+                <option value="TP HCM">TP HCM</option>
+                <option value="Đà Nẵng">Đà Nẵng</option>
+                <option value="An Giang">An Giang</option>
+                <option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
+                <option value="Bắc Giang">Bắc Giang</option>
+                <option value="Bắc Kạn">Bắc Kạn</option>
+                <option value="Bạc Liêu">Bạc Liêu</option>
+                <option value="Bến Tre">Bến Tre</option>
+                <option value="Bình Dương">Bình Dương</option>
+                <option value="Bình Định">Bình Định</option>
+                <option value="Bình Phước">Bình Phước</option>
+                <option value="Bình Thuận">Bình Thuận</option>
+                <option value="Cà Mau">Cà Mau</option>
+                <option value="Cần Thơ">Cần Thơ</option>
+                <option value="Cao Bằng">Cao Bằng</option>
+                <option value="Đắk Lắk">Đắk Lắk</option>
+                <option value="Đắk Nông">Đắk Nông</option>
+                <option value="Điện Biên">Điện Biên</option>
+                <option value="Đồng Nai">Đồng Nai</option>
+                <option value="Đồng Tháp">Đồng Tháp</option>
+                <option value="Gia Lai">Gia Lai</option>
+                <option value="Hà Giang">Hà Giang</option>
+                <option value="Hà Nam">Hà Nam</option>
+                <option value="Hải Dương">Hải Dương</option>
+                <option value="Hải Phòng">Hải Phòng</option>
+                <option value="Hậu Giang">Hậu Giang</option>
+                <option value="Hòa Bình">Hòa Bình</option>
+                <option value="Hưng Yên">Hưng Yên</option>
+                <option value="Khánh Hòa">Khánh Hòa</option>
+                <option value="Kiên Giang">Kiên Giang</option>
+                <option value="Kon Tum">Kon Tum</option>
+                <option value="Lai Châu">Lai Châu</option>
+                <option value="Lâm Đồng">Lâm Đồng</option>
+                <option value="Lạng Sơn">Lạng Sơn</option>
+                <option value="Lào Cai">Lào Cai</option>
+                <option value="Long An">Long An</option>
+                <option value="Nam Định">Nam Định</option>
+                <option value="Nghệ An">Nghệ An</option>
+                <option value="Ninh Bình">Ninh Bình</option>
+                <option value="Ninh Thuận">Ninh Thuận</option>
+                <option value="Phú Thọ">Phú Thọ</option>
+                <option value="Phú Yên">Phú Yên</option>
+                <option value="Quảng Bình">Quảng Bình</option>
+                <option value="Quảng Nam">Quảng Nam</option>
+                <option value="Quảng Ngãi">Quảng Ngãi</option>
+                <option value="Quảng Ninh">Quảng Ninh</option>
+                <option value="Quảng Trị">Quảng Trị</option>
+                <option value="Sóc Trăng">Sóc Trăng</option>
+                <option value="Sơn La">Sơn La</option>
+                <option value="Tây Ninh">Tây Ninh</option>
+                <option value="Thái Bình">Thái Bình</option>
+                <option value="Thái Nguyên">Thái Nguyên</option>
+                <option value="Thanh Hóa">Thanh Hóa</option>
+                <option value="Thừa Thiên-Huế">Thừa Thiên-Huế</option>
+                <option value="Tiền Giang">Tiền Giang</option>
+                <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+                <option value="Trà Vinh">Trà Vinh</option>
+                <option value="Tuyên Quang">Tuyên Quang</option>
+                <option value="Vĩnh Long">Vĩnh Long</option>
+                <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                <option value="Yên Bái">Yên Bái</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Số điện thoại:</label>
+            <input type="text" name="phone_number" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="id_card">Số CMND:</label>
+            <input type="text" name="id_card" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="position">Vị trí:</label>
+            <select name="position" class="form-control" required>
+                <option value="Nhân viên">Nhân viên</option>
+                <option value="Trưởng phòng">Trưởng phòng</option>
+                <option value="Giám đốc">Giám đốc</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="department">Phòng ban:</label>
+            <select name="department" class="form-control" required>
+                <option value="Kế toán">Kế toán</option>
+                <option value="Hành chính">Hành chính</option>
+                <option value="IT">IT</option>
+                <option value="Marketing">Marketing</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="start_date">Ngày bắt đầu:</label>
+            <input type="date" name="start_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="salary">Lương:</label>
+            <input type="number" name="salary" class="form-control" required>
+        </div>
+        
+        <!-- Thêm thông tin hợp đồng -->
+        <div class="form-group">
+            <label for="contract_type">Loại hợp đồng:</label>
+            <select name="contract_type" class="form-control" required>
+                <option value="Bán thời gian">Bán thời gian</option>
+                <option value="Toàn thời gian">Toàn thời gian</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Trạng thái nhân viên:</label>
+            <select name="status" class="form-control" required>
+                <option value="Đang làm việc">Đang làm việc</option>
+                <option value="Đã nghỉ việc">Đã nghỉ việc</option>
+                <option value="Đang thử việc">Đang thử việc</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thêm Nhân viên</button>
+    </form>
+</div>
+{% endblock %}

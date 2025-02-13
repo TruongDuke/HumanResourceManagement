@@ -1,0 +1,30 @@
+{% extends "dashboard/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center">Chỉnh sửa thông tin nhân viên</h2>
+    
+    <!-- Thông báo phản hồi -->
+    {% if messages %}
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Form chỉnh sửa nhân viên -->
+    <form method="POST">
+        {% csrf_token %}
+        <!-- Hiển thị form fields -->
+        {{ form.as_p }}
+
+        <!-- Nút lưu thông tin -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+            <a href="{% url 'manage_employees' %}" class="btn btn-secondary">Hủy bỏ</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

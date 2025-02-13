@@ -1,0 +1,74 @@
+{% extends "dashboard/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Quản lý Hợp đồng </h2>
+
+    <div class="row mb-4">
+        <!-- Form tìm kiếm nhân viên -->
+        <div class="col-md-9">
+            <form method="GET" action="{% url 'search_contract' %}" class="form-inline">
+                <div class="input-group w-100">
+                    <select name="search_by" class="custom-select mr-2">
+                        <option value="id" {% if search_by == 'id' %}selected{% endif %}>ID</option>
+                        <option value="name" {% if search_by == 'name' %}selected{% endif %}>Tên</option>
+                        <option value="email" {% if search_by == 'email' %}selected{% endif %}>Email</option>
+                        <option value="position" {% if search_by == 'position' %}selected{% endif %}>Vị trí</option>
+                        <option value="department" {% if search_by == 'department' %}selected{% endif %}>Phòng ban</option>
+                        <option value="status" {% if search_by == 'status' %}selected{% endif %}>Trạng thái</option>
+
+                    </select>
+                    <input type="text" name="query" class="form-control mr-2" placeholder="Tìm kiếm" value="{{ query }}" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách nhân viên -->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Chức vụ</th>
+                    <th>Phòng ban</th>
+                    <th>Hợp đồng</th>
+                    <th>Ngày bắt đầu</th> 
+                    <th>Ngày kết thúc</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                   
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Lặp qua danh sách nhân viên từ backend -->
+                {% for contract in contracts %}
+                <tr class="text-center">
+                    <td>{{ contract.get_contract_details.id }}</td>
+                    <td>{{ contract.get_contract_details.name }}</td>
+                    <td>{{ contract.get_contract_details.position }}</td>
+                    <td>{{ contract.get_contract_details.department }}</td>
+                    <td>{{ contract.get_contract_details.contract_type }}</td>
+                    <td>{{ contract.get_contract_details.start_date|date:"d-m-Y" }}</td>
+                    <td>{{ contract.get_contract_details.end_date|date:"d-m-Y" }}</td>
+                    <td>{{ contract.get_contract_details.status }}</td>
+                    <td>
+                        <a href="" class="btn btn-sm btn-warning">Xóa</a> 
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Không có nhân viên nào</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

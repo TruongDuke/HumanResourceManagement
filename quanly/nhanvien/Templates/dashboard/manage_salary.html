@@ -1,0 +1,48 @@
+{% extends "dashboard/home.html" %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Quản lý Lương</h2>
+
+    <!-- Bộ lọc theo tháng -->
+    <form method="GET" class="form-inline mb-4">
+        <label for="month" class="mr-2">Tháng:</label>
+        <input type="number" id="month" name="month" class="form-control mr-3" value="{{ month }}" min="1" max="12">
+        <label for="year" class="mr-2">Năm:</label>
+        <input type="number" id="year" name="year" class="form-control mr-3" value="{{ year }}" min="2000">
+        <button type="submit" class="btn btn-primary">Lọc</button>
+    </form>
+
+    <!-- Bảng hiển thị lương -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Tên nhân viên</th>
+                <!-- <th>Lương cứng</th> -->
+                <th>Số công thực tế</th>
+                <th>Số giờ làm việc</th>
+                <th>Phạt đi muộn</th>
+                <th>Lương gộp</th>
+                <th>Lương thực nhận (sau thuế)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in salary_details %}
+            <tr>
+                <td>{{ detail.employee.name }}</td>
+                <!-- <td>{{ detail.base_salary }}</td> -->
+                <td>{{ detail.actual_days }}</td>
+                <td>{{ detail.hours_worked }}</td>
+                <td>{{ detail.late_penalty }}</td>
+                <td>{{ detail.gross_salary }}</td>
+                <td>{{ detail.net_salary_after_tax }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Không có dữ liệu lương.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

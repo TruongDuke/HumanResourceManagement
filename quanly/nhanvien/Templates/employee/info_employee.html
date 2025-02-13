@@ -1,0 +1,98 @@
+{% extends "employee/home.html" %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Thông Tin Chi Tiết Nhân Viên</h2>
+     <!-- Nút Sửa thông tin -->
+     <div class="text-end">
+        <a href="{% url 'edit_info_employee' employee.email %}" class="btn btn-warning">Sửa Thông Tin</a>
+    </div>
+
+
+    <!-- Card thông tin nhân viên -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Thông Tin Cá Nhân</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Tên:</th>
+                        <td>{{ employee.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày sinh:</th>
+                        <td>{{ employee.birth_date|date:"d-m-Y" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Giới tính:</th>
+                        <td>{{ employee.gender }}</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ:</th>
+                        <td>{{ employee.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Số điện thoại:</th>
+                        <td>{{ employee.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>{{ employee.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Số CMND:</th>
+                        <td>{{ employee.id_card }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Card thông tin công việc -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Thông Tin Công Việc</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Vị trí:</th>
+                        <td>{{ employee.position }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phòng ban:</th>
+                        <td>{{ employee.department }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày bắt đầu:</th>
+                        <td>{{ employee.start_date|date:"d-m-Y" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lương:</th>
+                        <td>{{ employee.salary|floatformat:2 }}</td>
+                    </tr>
+                    <tr>
+                        <th>Loại hợp đồng:</th>
+                        <td>{{ employee.contract_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Trạng thái:</th>
+                        <td>
+                            {% if employee.status == 'active' %}
+                                <span class="badge bg-success text-white">Đang làm việc</span>
+                            {% elif employee.status == 'inactive' %}
+                                <span class="badge bg-danger text-white">Ngừng làm việc</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Chưa xác định</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

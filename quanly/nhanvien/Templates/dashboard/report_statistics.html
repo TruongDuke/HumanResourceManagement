@@ -1,0 +1,25 @@
+{% extends "dashboard/home.html" %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Báo cáo Thống kê Công việc</h2>
+
+    <!-- <p><strong>Tháng:</strong> {{ month }}/{{ year }}</p>
+    <p><strong>Tổng số task:</strong> {{ total_tasks }}</p>
+    <p><strong>Số task hoàn thành:</strong> {{ total_completed_tasks }}</p>
+    <p><strong>Số task trễ:</strong> {{ total_delayed_tasks }}</p> -->
+
+    {% if chart_base64 %}
+        <form method="GET">
+            <input type="month" name="month" value="{{ month_year|default:'' }}" required>
+            <button type="submit" class="btn btn-primary">Lọc</button>
+        </form>
+    
+        <div class="text-center">
+            <img src="data:image/png;base64,{{ chart_base64 }}" alt="Biểu đồ thống kê" />
+        </div>
+    {% else %}
+        <p class="text-center text-danger">Không có dữ liệu để hiển thị biểu đồ.</p>
+    {% endif %}
+</div>
+{% endblock %}

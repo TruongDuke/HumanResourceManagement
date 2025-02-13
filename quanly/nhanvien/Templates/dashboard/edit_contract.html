@@ -1,0 +1,22 @@
+{% extends "dashboard/home.html" %}
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center">Chỉnh sửa Hợp đồng</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="contract_type">Loại hợp đồng:</label>
+            <input type="text" class="form-control" id="contract_type" name="contract_type" value="{{ contract.contract_type }}">
+        </div>
+        <div class="form-group">
+            <label for="start_date">Ngày bắt đầu:</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ contract.start_date|date:"Y-m-d" }}">
+        </div>
+        <div class="form-group">
+            <label for="end_date">Ngày kết thúc:</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ contract.end_date|date:"Y-m-d" }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+    </form>
+</div>
+{% endblock %}

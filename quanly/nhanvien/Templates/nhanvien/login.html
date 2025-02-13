@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management</title>
+    <link href="{% static 'static/nhanvien/style.css' %}" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a1b9a; /* Tím đậm */
+            --secondary-color: #4caf50; /* Xanh lá nhạt */
+            --background-gradient: linear-gradient(135deg, #6a1b9a, #4caf50); /* Gradient tím-xanh */
+            --text-color: #ffffff; /* Trắng */
+            --input-bg: rgba(255, 255, 255, 0.9); /* Nền input trắng mờ */
+            --input-text: #333333; /* Chữ màu tối */
+            --button-bg: #6a1b9a; /* Nút tím */
+            --button-hover-bg: #4caf50; /* Nút xanh khi hover */
+            --link-color: #4caf50; /* Màu xanh cho liên kết */
+            --container-bg: rgba(255, 255, 255, 0.95); /* Nền container trắng tinh */
+            --shadow-color: rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+            --border-radius: 20px; /* Bo góc container */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: var(--background-gradient);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: var(--container-bg);
+            padding: 40px;
+            width: 400px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px var(--shadow-color);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--input-text);
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px var(--secondary-color);
+            outline: none;
+        }
+
+        button {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--button-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        a {
+            margin-top: 10px;
+            display: inline-block;
+            color: var(--link-color);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+
+        .alert {
+            margin-top: 15px;
+            padding: 10px;
+            font-size: 0.9rem;
+            background: var(--button-bg);
+            border-radius: 8px;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HR Management</h1>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" placeholder="Tên đăng nhập" name="username" required>
+            <input type="password" placeholder="Mật khẩu" name="password" required>
+            <button type="submit">Đăng Nhập</button>
+        </form>
+        {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                    {{ message }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

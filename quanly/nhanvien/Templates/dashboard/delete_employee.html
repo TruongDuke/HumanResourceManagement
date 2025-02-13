@@ -1,0 +1,14 @@
+{% extends "dashboard/home.html" %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center">Xóa nhân viên</h2>
+    <p>Bạn có chắc chắn muốn xóa nhân viên: <strong>{{ employee.name }}</strong> không?</p>
+    
+    <form method="POST" action="{% url 'delete_employee' employee.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">Xóa</button>
+    </form>
+    
+</div>
+{% endblock %}

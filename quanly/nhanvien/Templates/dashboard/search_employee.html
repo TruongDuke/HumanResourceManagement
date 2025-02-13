@@ -1,0 +1,80 @@
+{% extends "dashboard/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Kết quả tìm kiếm nhân viên</h2>
+
+    <!-- Dòng chứa form tìm kiếm và nút thêm nhân viên mới -->
+    <div class="row mb-4">
+        <!-- Form tìm kiếm nhân viên -->
+        <div class="col-md-9">
+            <form method="GET" action="{% url 'search_employee' %}" class="form-inline">
+                <div class="input-group w-100">
+                    <select name="search_by" class="custom-select mr-2">
+                        <option value="id" {% if search_by == 'id' %}selected{% endif %}>ID</option>
+                        <option value="name" {% if search_by == 'name' %}selected{% endif %}>Tên</option>
+                        <option value="email" {% if search_by == 'email' %}selected{% endif %}>Email</option>
+                        <option value="position" {% if search_by == 'position' %}selected{% endif %}>Vị trí</option>
+                        <option value="department" {% if search_by == 'department' %}selected{% endif %}>Phòng ban</option>
+                        <option value="status" {% if search_by == 'status' %}selected{% endif %}>Trạng thái</option>
+                        <option value="phone_number" {% if search_by == 'phone_number' %}selected{% endif %}>Số điện thoại</option>
+                    </select>
+                    <input type="text" name="query" class="form-control mr-2" placeholder="Tìm kiếm" value="{{ query }}" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Nút thêm nhân viên mới -->
+        <div class="col-md-3 text-right">
+            <a href="{% url 'add_employee' %}" class="btn btn-success">Thêm nhân viên mới</a>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách nhân viên -->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>Vị trí</th>
+                    <th>Phòng ban</th>
+                    <th>Trạng thái</th>
+                    <th>Số điện thoại</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr class="text-center">
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.position }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.status }}</td>
+                    <td>{{ employee.phone_number }}</td>
+                    <td>
+                        <a href="{% url 'detail_employee' employee.id %}" class="btn btn-sm btn-info">Chi tiết</a>
+                        <a href="{% url 'edit_employee' employee.id %}" class="btn btn-sm btn-warning">Sửa</a>
+                        <form method="POST" action="{% url 'delete_employee' employee.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Không có nhân viên nào được tìm thấy</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

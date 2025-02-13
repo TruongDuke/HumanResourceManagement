@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hợp đồng</title>
+    <style>
+        /* Thêm CSS tùy chỉnh cho PDF */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .contract-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .contract-details {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contract-header">
+        <h1>Hợp đồng lao động</h1>
+        <p>ID: {{ contract.id }}</p>
+    </div>
+    <div class="contract-details">
+        <p><strong>Tên nhân viên:</strong> {{ contract.employee.name }}</p>
+        <p><strong>Chức vụ:</strong> {{ contract.employee.position }}</p>
+        <p><strong>Ngày bắt đầu:</strong> {{ contract.start_date }}</p>
+        <p><strong>Ngày kết thúc:</strong> {{ contract.end_date }}</p>
+        <p><strong>Loại hợp đồng:</strong> {{ contract.contract_type }}</p>
+        <p><strong>Trạng thái:</strong> {{ contract.status }}</p>
+        <!-- Thêm các thông tin khác nếu cần -->
+    </div>
+</body>
+</html>

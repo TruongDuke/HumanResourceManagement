@@ -1,0 +1,37 @@
+{% extends "employee/home.html" %}
+{% load static %}
+
+{% block body %}
+<h2>Danh sách nhiệm vụ của bạn</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tiêu đề</th>
+            <th>Mô tả</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày đến hạn</th>
+            <th>Ngày hoàn thành</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.start_date }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.end_date }}</td>
+            <td>{{ task.get_status_display }}</td>
+            <td>
+                <a href="{% url 'update_task_status' task.id %}" class="btn btn-primary btn-sm">Cập nhật</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "employee/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Lương Thưởng Nhân Viên</h2>
+
+    <!-- Thông tin lương thưởng -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Thông tin lương thưởng</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>ID Nhân viên:</strong> {{ employee.id }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Tên:</strong> {{ employee.name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Email:</strong> {{ employee.email }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Vị trí:</strong> {{ employee.position }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Phòng ban:</strong> {{ employee.department }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Lương cứng:</strong> {{ employee.salary|floatformat:2 }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Trợ cấp:</strong> {{ employee.bonus|floatformat:2 }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Tổng thu nhập:</strong> {{ employee.total_income|floatformat:2 }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% comment %} 
+    <a href="{% url 'employee_dashboard' %}" class="btn btn-primary">Quay lại</a> {% endcomment %}
+</div>
+{% endblock %}

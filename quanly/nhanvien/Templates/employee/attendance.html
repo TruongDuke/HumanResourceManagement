@@ -1,0 +1,53 @@
+{% extends "employee/home.html" %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Chấm Công</h2>
+        </div>
+        <div class="card-body">
+            <!-- Thông tin chấm công -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Ngày:</strong> {{ attendance.date }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Trạng thái:</strong> 
+                        {% if attendance.check_in and attendance.check_out %}
+                            <span class="badge bg-success">Hoàn thành</span>
+                        {% elif attendance.check_in %}
+                            <span class="badge bg-warning text-dark">Đang làm</span>
+                        {% else %}
+                            <span class="badge bg-danger">Chưa check-in</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>Check-In:</strong> {{ attendance.check_in|default:"Chưa check-in" }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Check-Out:</strong> {{ attendance.check_out|default:"Chưa check-out" }}</p>
+                </div>
+            </div>
+
+            <!-- Nút Check-In và Check-Out -->
+            <form method="POST" class="text-center">
+                {% csrf_token %}
+                <button type="submit" name="action" value="check_in" class="btn btn-success btn-lg" {% if attendance.check_in %}disabled{% endif %}>
+                    <i class="fas fa-sign-in-alt"></i> Check-In
+                </button>
+                <button type="submit" name="action" value="check_out" class="btn btn-danger btn-lg" {% if attendance.check_out %}disabled{% endif %}>
+                    <i class="fas fa-sign-out-alt"></i> Check-Out
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <small>Hãy đảm bảo bạn check-in và check-out đúng giờ.</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

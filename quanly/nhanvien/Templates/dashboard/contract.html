@@ -1,0 +1,55 @@
+{% extends "dashboard/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Quản lý Hợp đồng</h2>
+
+    <!-- Bảng danh sách hợp đồng -->
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Tên Nhân Viên</th>
+                    <th>Chức Vụ</th>
+                    <th>Phòng Ban</th>
+                    <th>Loại Hợp Đồng</th>
+                    <th>Ngày Bắt Đầu</th>
+                    <th>Ngày Kết Thúc</th>
+                    <th>Trạng Thái</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contract in contracts %}
+                <tr class="text-center">
+                    <td>{{ contract.employee.id }}</td>
+                    <td>{{ contract.employee.name }}</td>
+                    <td>{{ contract.employee.position }}</td>
+                    <td>{{ contract.employee.department }}</td>
+                    <td>{{ contract.contract_type }}</td>
+                    <td>{{ contract.start_date|date:"d-m-Y" }}</td>
+                    <td>{{ contract.end_date|date:"d-m-Y" }}</td>
+                    <td>
+                        {% if contract.is_active %}
+                            <span class="text-success">Còn hạn</span>
+                        {% else %}
+                            <span class="text-danger">Hết hạn</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_contract' contract.id %}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
+                        <a href="{% url 'view_contract' contract.id %}" class="btn btn-sm btn-info">Xem</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">Không có hợp đồng nào.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

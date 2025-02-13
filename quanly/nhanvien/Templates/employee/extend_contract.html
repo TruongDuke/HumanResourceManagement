@@ -1,0 +1,64 @@
+{% extends "employee/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Gia hạn hợp đồng</h2>
+
+    <!-- Thông tin hợp đồng -->    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4 class="mb-3">Thông tin hợp đồng hiện tại</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Loại hợp đồng</th>
+                    <td>{{ contract.contract_type }}</td>
+                </tr>
+                <tr>
+                    <th>Ngày bắt đầu</th>
+                    <td>{{ contract.start_date|date:"d-m-Y" }}</td>
+                </tr>
+                <tr>
+                    <th>Ngày kết thúc</th>
+                    <td>{{ contract.end_date|date:"d-m-Y" }}</td>
+                </tr>
+                <tr>
+                    <th>Trạng thái</th>
+                    <td>
+                        {% if contract.is_active %}
+                            <span class="badge bg-success">Còn hạn</span>
+                        {% else %}
+                            <span class="badge bg-danger">Hết hạn</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Form gia hạn hợp đồng -->
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="mb-3">Yêu cầu gia hạn hợp đồng</h4>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label for="renewal_request_date" class="form-label">Ngày yêu cầu gia hạn</label>
+                    <input type="date" class="form-control" id="renewal_request_date" name="renewal_request_date"
+                           value="{% if contract.renewal_request_date %}{{ contract.renewal_request_date|date:'Y-m-d' }}{% else %}{{ today|date:'Y-m-d' }}{% endif %}" required>
+                </div>
+
+                {% if not contract.renewal_pending %}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Gửi yêu cầu gia hạn</button>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <p class="text-warning">Yêu cầu gia hạn đã được gửi và đang chờ xử lý.</p>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

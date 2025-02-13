@@ -1,0 +1,48 @@
+{% extends "dashboard/home.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Xử lý hàng chờ</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Chức vụ</th>
+                    <th>Phòng ban</th>
+                    <th>Loại hợp đồng</th>
+                    <th>Ngày yêu cầu gia hạn</th>
+                    <th>Ngày bắt đầu hợp đồng mới</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contract in pending_contracts %}
+                <tr class="text-center">
+                    <td>{{ contract.id }}</td>
+                    <td>{{ contract.employee.name }}</td>
+                    <td>{{ contract.employee.position }}</td>
+                    <td>{{ contract.employee.department }}</td>
+                    <td>{{ contract.contract_type }}</td>
+                    <td>{{ contract.renewal_request_date|date:"d-m-Y" }}</td>
+                    <td>{{ contract.renewal_request_date|date:"d-m-Y" }}</td>
+                    <td>{{ contract.approval_date|date:"d-m-Y" }}</td>  
+                    <td>
+                        <a href="{% url 'approve_renewal' contract.employee.email %}" class="btn btn-success">Chấp nhận</a>
+                        <a href="{% url 'reject_renewal' contract.employee.email %}" class="btn btn-danger">Từ chối</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">Không có yêu cầu gia hạn nào đang chờ xử lý.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

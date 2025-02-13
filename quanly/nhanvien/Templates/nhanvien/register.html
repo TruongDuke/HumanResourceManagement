@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - WebApp</title>
+    <link href="{% static 'static/nhanvien/style.css' %}" rel="stylesheet">
+    <style>
+        body {
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.8); 
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #ffcc00; 
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+        }
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; 
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3; /* Màu xanh đậm khi hover */
+        }
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline; /* Gạch chân khi hover */
+        }
+        .alert {
+            color: #fff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Đăng Ký</h1>
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <input type="text" placeholder="Tên đăng nhập" name="username" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="password" placeholder="Mật khẩu" name="password" required>
+            
+            <label for="role">Chọn vai trò:</label>
+            <select name="role" required>
+                <option value="is_employee">Nhân viên</option>
+                
+            </select>
+
+            <button type="submit">Đăng Ký</button>
+            <p><a href="{% url 'home' %}">Đã có tài khoản? Đăng Nhập</a></p>
+        </form>
+        {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                    {{ message }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
